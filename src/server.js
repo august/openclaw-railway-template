@@ -205,6 +205,9 @@ async function startGateway() {
     stdio: "inherit",
     env: {
       ...process.env,
+      // Override PORT so the gateway doesn't inherit the wrapper's public port (e.g. 8080)
+      // and try to bind its canvas host there, conflicting with the wrapper.
+      PORT: String(INTERNAL_GATEWAY_PORT),
       OPENCLAW_STATE_DIR: STATE_DIR,
       OPENCLAW_WORKSPACE_DIR: WORKSPACE_DIR,
     },
